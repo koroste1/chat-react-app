@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import Header from "../../Header/Header";
 import Login from "../Login/Login";
 import './StartPage.scss';
