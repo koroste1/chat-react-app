@@ -8,11 +8,13 @@ import {useHistory} from "react-router-dom";
 
 const Login = () => {
     const auth = getAuth();
+    console.log(auth.currentUser);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const {isAuth, setIsAuth} = useContext(AuthContext);
     const history = useHistory();
-    if (isAuth){
+    if (isAuth) {
         history.push('/');
     }
     const login = (e) => {
@@ -48,26 +50,27 @@ const Login = () => {
             const credential = GoogleAuthProvider.credentialFromError(error);
             // ...
         });
-        // console.log(user);
     }
     return (
-        <form className={'login-form'} onSubmit={login}>
-            <div className="login-form__input">
-                <label htmlFor="email" className='login-form__label'>Email</label>
-                <Input type='text' placeholder='Email' id='email' value={email}
-                       onChange={event => setEmail(event.target.value)}
-                       required/>
-            </div>
-            <div className="login-form__input">
-                <label htmlFor="password" className='login-form__label'>Password</label>
-                <Input type='password' placeholder='Password' id='password'
-                       value={password}
-                       onChange={event => setPassword(event.target.value)}
-                       required/>
-            </div>
-            <Button type="submit">Enter</Button>
-            <Button onClick={loginWithGoogle}>Login with Google</Button>
-        </form>
+        <div className='login-page'>
+            <form className='login-page__login-form login-form' onSubmit={login}>
+                <div className="login-form__input">
+                    <label htmlFor="email" className='login-form__label'>Email</label>
+                    <Input type='text' placeholder='Email' id='email' value={email}
+                           onChange={event => setEmail(event.target.value)}
+                           required/>
+                </div>
+                <div className="login-form__input">
+                    <label htmlFor="password" className='login-form__label'>Password</label>
+                    <Input type='password' placeholder='Password' id='password'
+                           value={password}
+                           onChange={event => setPassword(event.target.value)}
+                           required/>
+                </div>
+                <Button type="submit">Enter</Button>
+                <Button onClick={loginWithGoogle}>Login with Google</Button>
+            </form>
+        </div>
     );
 };
 

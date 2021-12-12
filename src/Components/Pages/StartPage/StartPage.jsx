@@ -6,7 +6,10 @@ import './StartPage.scss';
 const StartPage = ({children, ...props}) => {
     return (
         <div className='start-page'>
-            <Header/>
+            <h1>
+                Chat app on React
+            </h1>
+            {/*<Header/>*/}
             {/*<Login/>*/}
         </div>
 
