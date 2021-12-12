@@ -1,0 +1,12 @@
+.input {
+  background: #fff;
+  border: 2px solid #1F2041;
+  border-radius: 8px;
+  color: #1F2041;
+  padding: 8px 12px;
+  flex: 0 1 100%;
+}
+
+.input::placeholder {
+  color: #1F2041;
+}
