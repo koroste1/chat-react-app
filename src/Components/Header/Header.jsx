@@ -18,7 +18,8 @@ const Header = () => {
             }).catch((error) => {
                 // An error happened.
             });
-            setIsAuth(false)
+            localStorage.removeItem('isAuth');
+            setIsAuth(false);
         } else {
             history.push('/login')
         }

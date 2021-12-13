@@ -2,10 +2,12 @@ import StartPage from "../Pages/StartPage/StartPage";
 import Login from "../Pages/Login/Login";
 import Messages from "../Pages/Messages/Messages";
 import Profile from "../Pages/Profile/Profile";
+import Register from "../Pages/Register/Register";
 
 export const publicRoutes = [
     {path: '/', component: StartPage, exact: true},
     {path: '/login', component: Login, exact: true},
+    {path: '/register', component: Register, exact: true},
 ]
 export const privateRoutes = [
     {path: '/', component: StartPage, exact: true},
