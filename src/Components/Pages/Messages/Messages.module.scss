@@ -1,0 +1,10 @@
+.messages{
+  flex: 0 1 100%;
+  display: flex;
+  background: #ffffff;
+
+  &__title{
+    font-size: 2em;
+    color: #000000;
+  }
+}
