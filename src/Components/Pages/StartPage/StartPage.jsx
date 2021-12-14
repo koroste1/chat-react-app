@@ -9,8 +9,7 @@ const StartPage = ({children, ...props}) => {
             <h1>
                 Chat app on React
             </h1>
-            {/*<Header/>*/}
-            {/*<Login/>*/}
+
         </div>
 
     );

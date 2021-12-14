@@ -1,10 +1,21 @@
 .messages{
   flex: 0 1 100%;
   display: flex;
-  background: #ffffff;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #c0a2a2;
 
   &__title{
     font-size: 2em;
     color: #000000;
+  }
+
+  &__all-messages{
+    flex: 1 1 auto;
+  }
+
+  &__form{
+    width: 100%;
+    display: flex;
   }
 }
