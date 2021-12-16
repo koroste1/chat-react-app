@@ -19,7 +19,7 @@ const Register = () => {
     const [repeatPassError, setRepeatPassError] = useState('');
     const history = useHistory();
     if (isAuth) {
-        setNewUserInDatabase(firestore,auth).then().catch(e=>console.log(e));
+
         history.push('/');
     }
 
@@ -51,6 +51,7 @@ const Register = () => {
                     updateProfile(auth.currentUser, {
                         displayName: displayName
                     }).then();
+
                     localStorage.setItem('isAuth', 'true');
                     setIsAuth(true);
                 })

@@ -1,8 +1,8 @@
 import {collection, doc, setDoc} from "firebase/firestore";
 
 export const setNewUserInDatabase = async (firestore, auth) => {
-    console.log(auth.currentUser.displayName)
     await setDoc(doc(firestore,'users', auth.currentUser.displayName),{
+        uid: auth.currentUser.uid,
         displayName:auth.currentUser.displayName,
         email:auth.currentUser.email,
         avatar:'',
