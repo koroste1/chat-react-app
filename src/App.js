@@ -4,9 +4,12 @@ import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./Components/AppRouter/AppRouter";
 import {AuthContext} from "./Components/Context/Context";
 import Header from "./Components/Header/Header";
+import {firestore} from "./index";
+import {getAuth} from "firebase/auth";
 
 
 function App() {
+    const auth = getAuth();
     const [isAuth, setIsAuth] = useState(false);
     useEffect(() => {
         if (localStorage.getItem('isAuth')) {
@@ -17,15 +20,14 @@ function App() {
         <AuthContext.Provider value={{
             isAuth,
             setIsAuth,
+            firestore,
+            auth
         }}>
             <BrowserRouter>
 
                 <div className="App">
                     <Header/>
                     <AppRouter/>
-                    {/*<StartPage/>*/}
-                    {/*<Header/>*/}
-                    {/*<Login/>*/}
                 </div>
             </BrowserRouter>
         </AuthContext.Provider>

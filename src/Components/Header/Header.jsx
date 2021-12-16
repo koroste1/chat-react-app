@@ -7,8 +7,8 @@ import {Link, useHistory} from "react-router-dom";
 import {getAuth, signOut} from "firebase/auth";
 
 const Header = () => {
-    const {isAuth, setIsAuth} = useContext(AuthContext);
-    const auth = getAuth();
+    const {isAuth, setIsAuth, auth} = useContext(AuthContext);
+
 
     const history = useHistory();
     const loginLogout = () => {

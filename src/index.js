@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import {initializeApp} from "firebase/app";
-import {getAnalytics} from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBU7JZ4tHYcFI8Ou9XeBgRseBMFUP_ytZU",
@@ -17,11 +17,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const firestore = getFirestore();
 
-
-
-// const firestore = firebase.firestore();
 
 ReactDOM.render(
     <React.StrictMode>

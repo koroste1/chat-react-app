@@ -5,6 +5,7 @@ import Button from "../../UI/Button/Button";
 import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {AuthContext} from "../../Context/Context";
 import {useHistory} from "react-router-dom";
+import {setNewUserInDatabase, validateEmail} from "../../../Reducer/AppReducer";
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -12,20 +13,16 @@ const Register = () => {
     const [repeatPassword, setRepeatPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [photoURL, setPhotoURL] = useState('');
-    const {isAuth, setIsAuth} = useContext(AuthContext);
+    const {isAuth, setIsAuth, firestore, auth} = useContext(AuthContext);
     const [emailError, setEmailError] = useState('');
     const [passError, setPassError] = useState('');
     const [repeatPassError, setRepeatPassError] = useState('');
     const history = useHistory();
     if (isAuth) {
+        setNewUserInDatabase(firestore,auth).then().catch(e=>console.log(e));
         history.push('/');
     }
-    const auth = getAuth();
 
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
 
     const validateEmailForm = () => {
         if (!validateEmail(email)) {
@@ -51,22 +48,15 @@ const Register = () => {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    user.displayName = displayName;
+                    updateProfile(auth.currentUser, {
+                        displayName: displayName
+                    }).then();
                     localStorage.setItem('isAuth', 'true');
                     setIsAuth(true);
-                    // updateProfile(auth.currentUser, {
-                    //     displayName: displayName,
-                    //     photoURL: photoURL,
-                    // }).then(() => {
-                    // }).catch((error) => {
-                    // });
-
-                    // ...
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    // ..
                 });
         }
     }

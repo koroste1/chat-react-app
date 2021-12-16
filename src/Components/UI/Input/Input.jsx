@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from "./Input.module.scss";
 
-const Input = (props) => {
+const Input = ({onChange, ...props}) => {
     return (
-        <input className={classes.input} {...props}/>
+        <input className={classes.input} onChange={onChange} {...props}/>
     );
 };
 

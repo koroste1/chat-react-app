@@ -5,40 +5,18 @@ import './Login-form.scss';
 import {AuthContext} from "../../Context/Context";
 import {getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword} from "firebase/auth";
 import {Link, useHistory} from "react-router-dom";
+import {setNewUserInDatabase, validateEmailForm, validatePasswordForm} from "../../../Reducer/AppReducer";
 
 const Login = () => {
-    const auth = getAuth();
-    console.log(auth.currentUser);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passError, setPassError] = useState('');
-    const {isAuth, setIsAuth} = useContext(AuthContext);
+    const {isAuth, setIsAuth, auth, firestore} = useContext(AuthContext);
+    console.log(auth.currentUser);
     const history = useHistory();
     if (isAuth) {
         history.push('/');
-    }
-
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    const validateEmailForm = () => {
-        if (!email.length) {
-            setEmailError('Required');
-        } else {
-            setEmailError('Invalid email address');
-        }
-    }
-    const validatePasswordForm =()=>{
-        if (!password.length) {
-            setPassError('Required');
-        } else if(password.length < 8){
-            setPassError('Password is too short');
-        } else{
-            setPassError('Invalid password');
-        }
     }
 
     const login = (e) => {
@@ -49,12 +27,14 @@ const Login = () => {
                 localStorage.setItem('isAuth', 'true')
                 setIsAuth(true);
                 console.log(user);
+
             })
             .catch((error) => {
                 //const errorCode = error.code;
                 const errorMessage = error.message;
-                validateEmailForm();
-                validatePasswordForm();
+                validateEmailForm(email, setEmailError);
+                validatePasswordForm(password, setPassError);
+
             });
 
     }
@@ -69,6 +49,7 @@ const Login = () => {
             const user = result.user;
             localStorage.setItem('isAuth', 'true')
             setIsAuth(true);
+            setNewUserInDatabase(firestore, auth);
         }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
@@ -100,7 +81,7 @@ const Login = () => {
                 </div>
 
                 <Button type="submit">Enter</Button>
-                <Button onClick={loginWithGoogle}>Login with Google</Button>
+                <Button type='button' onClick={loginWithGoogle}>Login with Google</Button>
                 <Link to={'/register'}><Button>Register</Button></Link>
             </form>
 

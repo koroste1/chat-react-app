@@ -9,4 +9,8 @@
   text-transform: uppercase;
   color: #fff;
   margin: 12px;
+  cursor: pointer;
+  &:hover{
+    box-shadow: #000000;
+  }
 }

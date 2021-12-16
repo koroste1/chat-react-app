@@ -1,10 +1,37 @@
 .messages{
   flex: 0 1 100%;
   display: flex;
-  background: #ffffff;
-
+  justify-content: space-between;
+  background: #c0a2a2;
+  &__my{
+    background: #61dafb;
+    margin: 8px;
+    p{
+      width: 100%;
+    }
+  }
+  &__other{
+    background: #1F2041;
+    color: white;
+  }
+  &__chat{
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+  }
   &__title{
     font-size: 2em;
     color: #000000;
+  }
+
+  &__all-messages{
+    flex: 1 1 auto;
+    height: 20vh;
+    overflow: auto;
+  }
+
+  &__form{
+    width: 100%;
+    display: flex;
   }
 }
