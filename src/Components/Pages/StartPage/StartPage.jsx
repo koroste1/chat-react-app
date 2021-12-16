@@ -3,10 +3,13 @@ import Header from "../../Header/Header";
 import Login from "../Login/Login";
 import './StartPage.scss';
 import {AuthContext} from "../../Context/Context";
+import {setNewUserInDatabase} from "../../../Reducer/AppReducer";
 
 const StartPage = ({children, ...props}) => {
-    const {auth} = useContext(AuthContext);
-    useEffect(()=>console.log(auth.currentUser),[]);
+    const {auth, isAuth,firestore} = useContext(AuthContext);
+    useEffect(()=>
+        isAuth && setNewUserInDatabase(firestore,auth).then().catch(e=>console.log(e))
+        ,[]);
     return (
         <div className='start-page'>
             <h1>

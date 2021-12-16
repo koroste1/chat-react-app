@@ -11,6 +11,7 @@ export const publicRoutes = [
 ]
 export const privateRoutes = [
     {path: '/', component: StartPage, exact: true},
+    // {path: '/:id/profile', component: Profile, exact: true},
     {path: '/login', component: Login, exact: true},
     {path: '/messages', component:Messages, exact: true},
     {path: '/profile', component:Profile, exact: true},

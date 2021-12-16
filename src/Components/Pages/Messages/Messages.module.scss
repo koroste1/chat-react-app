@@ -13,6 +13,10 @@
   &__other{
     background: #1F2041;
     color: white;
+    margin: 8px;
+    p{
+      width: 100%;
+    }
   }
   &__chat{
     flex: 1 1 auto;

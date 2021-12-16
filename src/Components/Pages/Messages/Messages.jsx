@@ -4,17 +4,16 @@ import Friends from "../../Friends/Friends";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import {AuthContext} from "../../Context/Context";
-import {collection, setDoc, doc, getDocs, orderBy, query} from "firebase/firestore";
+import {collection, setDoc, doc, getDocs, orderBy, query, limit} from "firebase/firestore";
 import {useCollection, useCollectionData} from "react-firebase-hooks/firestore";
 import firebase from "firebase/compat";
 
-console.log(firebase.firestore.FieldValue.serverTimestamp());
-const Messages = () => {
+const Messages = ({children, ...props}) => {
     const [message, setMessage] = useState();
     const {firestore, auth} = useContext(AuthContext);
     const messageRef = collection(firestore, 'messages');
-    const [value, loading, error] = useCollectionData(messageRef);
-    const q = query(messageRef, orderBy('createdAt'))
+    const q = query(messageRef, orderBy('createdAt', 'asc'))
+    const [value, loading, error] = useCollectionData(q);
     const sendMessage = async (e) => {
         e.preventDefault();
         if (!message) return;
