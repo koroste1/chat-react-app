@@ -5,7 +5,6 @@ import './Login-form.scss';
 import {AuthContext} from "../../Context/Context";
 import {getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword} from "firebase/auth";
 import {Link, useHistory} from "react-router-dom";
-import {collection, doc, setDoc} from "firebase/firestore";
 import {setNewUserInDatabase, validateEmailForm, validatePasswordForm} from "../../../Reducer/AppReducer";
 
 const Login = () => {
@@ -20,11 +19,6 @@ const Login = () => {
         history.push('/');
     }
 
-
-
-
-
-
     const login = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(auth, email, password)
@@ -33,13 +27,14 @@ const Login = () => {
                 localStorage.setItem('isAuth', 'true')
                 setIsAuth(true);
                 console.log(user);
-                setNewUserInDatabase(firestore, auth).then();
+
             })
             .catch((error) => {
                 //const errorCode = error.code;
                 const errorMessage = error.message;
-                validateEmailForm();
-                validatePasswordForm();
+                validateEmailForm(email, setEmailError);
+                validatePasswordForm(password, setPassError);
+
             });
 
     }
@@ -54,7 +49,7 @@ const Login = () => {
             const user = result.user;
             localStorage.setItem('isAuth', 'true')
             setIsAuth(true);
-            setNewUserInDatabase();
+            setNewUserInDatabase(firestore, auth);
         }).catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;

@@ -19,6 +19,7 @@ const Register = () => {
     const [repeatPassError, setRepeatPassError] = useState('');
     const history = useHistory();
     if (isAuth) {
+        setNewUserInDatabase(firestore,auth).then().catch(e=>console.log(e));
         history.push('/');
     }
 
@@ -47,23 +48,15 @@ const Register = () => {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    user.displayName = displayName;
+                    updateProfile(auth.currentUser, {
+                        displayName: displayName
+                    }).then();
                     localStorage.setItem('isAuth', 'true');
                     setIsAuth(true);
-                    setNewUserInDatabase(firestore,auth).then().catch(e=>console.log(e));
-                    // updateProfile(auth.currentUser, {
-                    //     displayName: displayName,
-                    //     photoURL: photoURL,
-                    // }).then(() => {
-                    // }).catch((error) => {
-                    // });
-
-                    // ...
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    // ..
                 });
         }
     }
