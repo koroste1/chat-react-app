@@ -16,9 +16,7 @@ const StartPage = ({children, ...props}) => {
             <h1>
                 chat react app
             </h1>
-
         </div>
-
     );
 };
 

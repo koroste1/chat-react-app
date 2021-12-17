@@ -8,17 +8,17 @@ import {collection, setDoc, doc, getDocs, orderBy, query, limit} from "firebase/
 import {useCollection, useCollectionData} from "react-firebase-hooks/firestore";
 import firebase from "firebase/compat";
 import {useParams} from "react-router-dom";
+import {windowSize} from "../../../Reducer/AppReducer";
 
 const Messages = ({children, ...props}) => {
     const {id} = useParams();
-    const [message, setMessage] = useState();
+    const [width, setWidth] = useState();
+    const [message, setMessage] = useState('');
     const {firestore, auth} = useContext(AuthContext);
     const messageRefFrom = collection(firestore, `${auth.currentUser.uid}-${id}`);
     const messageRefTo = collection(firestore, `${id}-${auth.currentUser.uid}`);
     const qFrom = query(messageRefFrom, orderBy('createdAt', 'asc'))
-    const qTo = query(messageRefTo, orderBy('createdAt', 'asc'))
     const [value, loading] = useCollectionData(qFrom);
-    const [valueTo, loadingTo] = useCollectionData(qTo);
     const sendMessage = async (e) => {
         e.preventDefault();
         if (!message) return;
@@ -38,24 +38,25 @@ const Messages = ({children, ...props}) => {
         });
         setMessage('');
     }
+    useEffect(()=>windowSize(setWidth),[window]);
     return (
         <div className={classes.messages}>
-            <Friends/>
+            {width > 768 && <Friends/>}
             <div className={classes['messages__chat']}>
                 <div className={classes['messages__all-messages']}>
                     {/*{error && <strong>Error: {JSON.stringify(error)}</strong>}*/}
                     {loading && <span>Collection: Loading...</span>}
-                    {value && (
-                        <div>
-                            {value.map(item =>
-                                <div key={item.uid}
+                    {value &&
+                        // <div>
+                            value.map(item =>
+                                <div key={item.createdAt}
                                      className={auth.currentUser.uid == item.uid ? classes['messages__my'] : classes['messages__other']}>
                                     <h3>{item.displayName}</h3>
                                     <p>{item.text}</p>
                                 </div>
-                            )}
-                        </div>
-                    )}
+                            )
+                        // </div>
+                    }
                 </div>
                 <form action="" className={classes['messages__form']} onSubmit={sendMessage}>
                     <Input type={'text'} value={message} onChange={e => setMessage(e.target.value)}/>
