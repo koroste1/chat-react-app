@@ -6,6 +6,7 @@ import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/a
 import {AuthContext} from "../../Context/Context";
 import {useHistory} from "react-router-dom";
 import {setNewUserInDatabase, validateEmail} from "../../../Reducer/AppReducer";
+import {doc, setDoc} from "firebase/firestore";
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -13,13 +14,12 @@ const Register = () => {
     const [repeatPassword, setRepeatPassword] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [photoURL, setPhotoURL] = useState('');
-    const {isAuth, setIsAuth, firestore, auth} = useContext(AuthContext);
+    const {isAuth, setIsAuth, firestore, auth, setAuth} = useContext(AuthContext);
     const [emailError, setEmailError] = useState('');
     const [passError, setPassError] = useState('');
     const [repeatPassError, setRepeatPassError] = useState('');
     const history = useHistory();
     if (isAuth) {
-
         history.push('/');
     }
 
@@ -41,17 +41,24 @@ const Register = () => {
         }
     }
 
-
+    // const setNewUserInDatabase = async (firestore, auth) => {
+    //     await setDoc(doc(firestore, 'users', auth.currentUser.displayName), {
+    //         uid: auth.currentUser.uid,
+    //         displayName: auth.currentUser.displayName,
+    //         email: auth.currentUser.email,
+    //         avatar: '',
+    //     })
+    // }
     const register = (e) => {
         e.preventDefault();
         if (validateEmailForm() && validatePassword()) {
             createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
+                .then(async (userCredential) => {
                     const user = userCredential.user;
                     updateProfile(auth.currentUser, {
                         displayName: displayName
                     }).then();
-
+                    setAuth(getAuth());
                     localStorage.setItem('isAuth', 'true');
                     setIsAuth(true);
                 })
