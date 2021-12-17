@@ -9,9 +9,10 @@ import {getAuth} from "firebase/auth";
 
 
 function App() {
-    const auth = getAuth();
+    const [auth, setAuth] = useState();
     const [isAuth, setIsAuth] = useState(false);
     useEffect(() => {
+        setAuth(getAuth());
         if (localStorage.getItem('isAuth')) {
             setIsAuth(true)
         }
@@ -21,7 +22,8 @@ function App() {
             isAuth,
             setIsAuth,
             firestore,
-            auth
+            auth,
+            setAuth
         }}>
             <BrowserRouter>
 
