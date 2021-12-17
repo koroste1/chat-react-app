@@ -1,6 +1,7 @@
 import {collection, doc, setDoc} from "firebase/firestore";
+import {useEffect} from "react";
 
-export const setNewUserInDatabase = async (firestore, auth={}) => {
+export const setNewUserInDatabase = async (firestore, auth = {}) => {
     const user = auth.currentUser;
     await setDoc(doc(firestore, 'users', user.displayName), {
         uid: user.uid,
@@ -8,6 +9,12 @@ export const setNewUserInDatabase = async (firestore, auth={}) => {
         email: user.email,
         avatar: '',
     })
+}
+
+export const windowSize = (setWidth) => {
+    window.addEventListener('resize', () =>
+        setWidth(window.innerWidth)
+    )
 }
 
 

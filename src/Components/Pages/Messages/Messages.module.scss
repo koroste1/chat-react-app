@@ -1,41 +1,40 @@
-.messages{
+.messages {
   flex: 0 1 100%;
   display: flex;
   justify-content: space-between;
   background: #c0a2a2;
-  &__my{
+
+  &__my {
     background: #61dafb;
     margin: 8px;
-    p{
-      width: 100%;
-    }
   }
-  &__other{
+
+  &__other {
     background: #1F2041;
     color: white;
     margin: 8px;
-    p{
-      width: 100%;
-    }
   }
-  &__chat{
+
+  &__chat {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
   }
-  &__title{
+
+  &__title {
     font-size: 2em;
     color: #000000;
   }
 
-  &__all-messages{
+  &__all-messages {
     flex: 1 1 auto;
     height: 20vh;
     overflow: auto;
   }
 
-  &__form{
-    width: 100%;
+  &__form {
+    flex: 0 1 auto;
     display: flex;
+    align-items: center;
   }
 }

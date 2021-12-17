@@ -1,14 +1,16 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Button from "../UI/Button/Button";
 import {AuthContext} from "../Context/Context";
 import './Header.scss';
 import logo from '../../logo.png';
 import {Link, useHistory} from "react-router-dom";
 import {getAuth, signOut} from "firebase/auth";
+import Navigation from "../Navigation/Navigation";
+import {windowSize} from "../../Reducer/AppReducer";
 
 const Header = () => {
     const {isAuth, setIsAuth, auth} = useContext(AuthContext);
-
+    const [width,setWidth] = useState();
 
     const history = useHistory();
     const loginLogout = () => {
@@ -24,19 +26,14 @@ const Header = () => {
             history.push('/login')
         }
     }
+    useEffect(()=>windowSize(setWidth))
     return (
         <header className='header'>
-            <Link to='/'><img src={logo} alt="logo" className='header__logo' width={'56px'}/></Link>
+            {width > 768 && <Link to='/'><img src={logo} alt="logo" className='header__logo' width={'56px'}/></Link>}
             {
                 isAuth
                     ?
-                    <nav className='header__nav nav'>
-                        <ul className="nav__list">
-                            <li className='nav__item'><Link to="/">Download</Link></li>
-                            <li className='nav__item'><Link to="/messages">Messages</Link></li>
-                            <li className="nav__item"><Link to="/profile">Profile</Link></li>
-                        </ul>
-                    </nav>
+                    <Navigation/>
                     :
                     <h2>Login</h2>
             }
