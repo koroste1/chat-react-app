@@ -38,20 +38,23 @@ const Login = () => {
             });
 
     }
-    const loginWithGoogle = async () => {
+
+    async function loginWithGoogle() {
+        console.log("loginWithGoogle")
 
         try {
             const provider = new GoogleAuthProvider();
             auth.languageCode = 'it';
-            const result = signInWithPopup(auth, provider)
+            const result = await signInWithPopup(auth, provider)
             // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const credential = await GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
             localStorage.setItem('isAuth', 'true')
             setIsAuth(true);
-            return await setNewUserInDatabase(firestore, auth);
+            const res = await setNewUserInDatabase(firestore, auth);
+            console.log("res", res)
         } catch (error) {
             // Handle Errors here.
             const errorCode = error.code;
