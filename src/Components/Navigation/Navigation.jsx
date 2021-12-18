@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import classes from './Navigation.module.scss';
-import logo from "../../logo.png";
+import logo from "../../assets/logo.png";
 
 const Navigation = () => {
     const linkList = ['Friends', 'Messages', 'Profile'];

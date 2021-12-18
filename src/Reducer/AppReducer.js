@@ -1,5 +1,4 @@
-import {collection, doc, setDoc} from "firebase/firestore";
-import {useEffect} from "react";
+import {doc, setDoc} from "firebase/firestore";
 
 export const setNewUserInDatabase = async (firestore, auth = {}) => {
     const user = auth.currentUser;

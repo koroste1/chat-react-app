@@ -11,12 +11,14 @@ import {getAuth} from "firebase/auth";
 function App() {
     const [auth, setAuth] = useState();
     const [isAuth, setIsAuth] = useState(false);
+
     useEffect(() => {
         setAuth(getAuth());
         if (localStorage.getItem('isAuth')) {
             setIsAuth(true)
         }
     }, [])
+
     return (
         <AuthContext.Provider value={{
             isAuth,
@@ -26,7 +28,6 @@ function App() {
             setAuth
         }}>
             <BrowserRouter>
-
                 <div className="App">
                     <Header/>
                     <AppRouter/>

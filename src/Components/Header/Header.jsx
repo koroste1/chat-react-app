@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import Button from "../UI/Button/Button";
 import {AuthContext} from "../Context/Context";
 import './Header.scss';
-import logo from '../../logo.png';
+import logo from '../../assets/logo.png';
 import {Link, useHistory} from "react-router-dom";
 import {getAuth, signOut} from "firebase/auth";
 import Navigation from "../Navigation/Navigation";
