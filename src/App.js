@@ -6,6 +6,7 @@ import {AuthContext} from "./Components/Context/Context";
 import Header from "./Components/Header/Header";
 import {firestore} from "./index";
 import {getAuth} from "firebase/auth";
+import {setNewUserInDatabase} from "./Reducer/AppReducer";
 
 
 function App() {
@@ -18,6 +19,11 @@ function App() {
             setIsAuth(true)
         }
     }, [])
+
+
+    if (!Object.keys(firestore)) {
+        return <div>Loading...</div>
+    }
 
     return (
         <AuthContext.Provider value={{

@@ -1,12 +1,10 @@
 import React, {useContext, useState} from 'react';
-import classes from './Register.module.scss';
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
-import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+import {createUserWithEmailAndPassword, getAuth, updateProfile} from "firebase/auth";
 import {AuthContext} from "../../Context/Context";
 import {useHistory} from "react-router-dom";
-import {setNewUserInDatabase, validateEmail} from "../../../Reducer/AppReducer";
-import {doc, setDoc} from "firebase/firestore";
+import {validateEmail} from "../../../Reducer/AppReducer";
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -49,30 +47,29 @@ const Register = () => {
     //         avatar: '',
     //     })
     // }
-    const register = (e) => {
+    const register = async (e) => {
         e.preventDefault();
         if (validateEmailForm() && validatePassword()) {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then(async (userCredential) => {
-                    const user = userCredential.user;
-                    updateProfile(auth.currentUser, {
-                        displayName: displayName
-                    }).then();
-                    setAuth(getAuth());
-                    localStorage.setItem('isAuth', 'true');
-                    setIsAuth(true);
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                });
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+                const user = userCredential.user;
+                updateProfile(auth.currentUser, {
+                    displayName: displayName
+                }).then();
+                setAuth(getAuth());
+                localStorage.setItem('isAuth', 'true');
+                setIsAuth(true);
+            } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+            }
         }
     }
 
 
     return (
         <div>
-            <form action="" onSubmit={register}>
+            <form onSubmit={register}>
                 <div>
                     <label htmlFor="regEmail" className='login-form__label'>Email</label>
                     <Input type='text' placeholder='Email' id='regEmail' value={email}

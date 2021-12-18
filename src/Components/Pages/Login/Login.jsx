@@ -3,7 +3,7 @@ import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import './Login-form.scss';
 import {AuthContext} from "../../Context/Context";
-import {getAuth, signInWithPopup, GoogleAuthProvider, signInWithEmailAndPassword} from "firebase/auth";
+import {GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup} from "firebase/auth";
 import {Link, useHistory} from "react-router-dom";
 import {setNewUserInDatabase, validateEmailForm, validatePasswordForm} from "../../../Reducer/AppReducer";
 
@@ -13,8 +13,8 @@ const Login = () => {
     const [emailError, setEmailError] = useState('');
     const [passError, setPassError] = useState('');
     const {isAuth, setIsAuth, auth, firestore} = useContext(AuthContext);
-    console.log(auth.currentUser);
     const history = useHistory();
+
     if (isAuth) {
         history.push('/');
     }
@@ -39,9 +39,11 @@ const Login = () => {
 
     }
     const loginWithGoogle = async () => {
-        const provider = new GoogleAuthProvider();
-        auth.languageCode = 'it';
-        signInWithPopup(auth, provider).then((result) => {
+
+        try {
+            const provider = new GoogleAuthProvider();
+            auth.languageCode = 'it';
+            const result = signInWithPopup(auth, provider)
             // This gives you a Google Access Token. You can use it to access the Google API.
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
@@ -49,8 +51,8 @@ const Login = () => {
             const user = result.user;
             localStorage.setItem('isAuth', 'true')
             setIsAuth(true);
-            setNewUserInDatabase(firestore, auth);
-        }).catch((error) => {
+            return await setNewUserInDatabase(firestore, auth);
+        } catch (error) {
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -59,8 +61,9 @@ const Login = () => {
             // The AuthCredential type that was used.
             const credential = GoogleAuthProvider.credentialFromError(error);
             // ...
-        });
+        }
     }
+
     return (
         <div className='login-page'>
             <form action={''} className='login-page__login-form login-form' onSubmit={login}>

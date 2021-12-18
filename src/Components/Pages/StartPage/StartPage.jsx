@@ -1,14 +1,7 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import './StartPage.scss';
-import {AuthContext} from "../../Context/Context";
-import {setNewUserInDatabase} from "../../../Reducer/AppReducer";
 
 const StartPage = ({children, ...props}) => {
-    const {auth, isAuth, firestore} = useContext(AuthContext);
-
-    useEffect(()=>
-        isAuth && setNewUserInDatabase(firestore,auth)
-    ,[])
 
     return (
         <div className='start-page'>

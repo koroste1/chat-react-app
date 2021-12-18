@@ -1,8 +1,12 @@
 import {doc, setDoc} from "firebase/firestore";
 
-export const setNewUserInDatabase = async (firestore, auth = {}) => {
+export const setNewUserInDatabase = async (firestore, auth) => {
     const user = auth.currentUser;
-    await setDoc(doc(firestore, 'users', user.displayName), {
+    if (!Object.keys(firestore).length || !Object.keys(firestore).length) {
+        return
+    }
+
+    return await setDoc(doc(firestore, 'users', user.displayName), {
         uid: user.uid,
         displayName: user.displayName,
         email: user.email,

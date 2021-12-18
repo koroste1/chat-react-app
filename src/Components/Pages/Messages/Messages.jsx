@@ -4,8 +4,8 @@ import Friends from "../../Friends/Friends";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import {AuthContext} from "../../Context/Context";
-import {collection, setDoc, doc, getDocs, orderBy, query, limit} from "firebase/firestore";
-import {useCollection, useCollectionData} from "react-firebase-hooks/firestore";
+import {collection, doc, orderBy, query, setDoc} from "firebase/firestore";
+import {useCollectionData} from "react-firebase-hooks/firestore";
 import firebase from "firebase/compat";
 import {useParams} from "react-router-dom";
 import {windowSize} from "../../../Reducer/AppReducer";
@@ -19,6 +19,7 @@ const Messages = ({children, ...props}) => {
     const messageRefTo = collection(firestore, `${id}-${auth.currentUser.uid}`);
     const qFrom = query(messageRefFrom, orderBy('createdAt', 'asc'))
     const [value, loading] = useCollectionData(qFrom);
+
     const sendMessage = async (e) => {
         e.preventDefault();
         if (!message) return;
