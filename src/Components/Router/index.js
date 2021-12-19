@@ -3,7 +3,7 @@ import Login from "../Pages/Login/Login";
 import Messages from "../Pages/Messages/Messages";
 import Profile from "../Pages/Profile/Profile";
 import Register from "../Pages/Register/Register";
-import Friends from "../Friends/Friends";
+import Friends from "../Pages/Friends/Friends";
 
 export const publicRoutes = [
     {path: '/', component: StartPage, exact: true},

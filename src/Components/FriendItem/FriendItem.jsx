@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './FriendItem.module.scss';
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 const FriendItem = ({children, id, ...props}) => {
     return (

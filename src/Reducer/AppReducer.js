@@ -1,9 +1,10 @@
 import {doc, setDoc} from "firebase/firestore";
+import {signOut} from "firebase/auth";
 
 export const setNewUserInDatabase = async (firestore, auth) => {
     const user = auth.currentUser;
     if (!Object.keys(firestore).length || !Object.keys(firestore).length) {
-        return
+        return console.log('error');
     }
 
     return await setDoc(doc(firestore, 'users', user.displayName), {
@@ -14,7 +15,25 @@ export const setNewUserInDatabase = async (firestore, auth) => {
     })
 }
 
+export const setUserToLocalStorage = (user) => {
+    console.log(user);
+    localStorage.setItem('isAuth', 'true');
+    localStorage.setItem('uid', user.uid);
+    localStorage.setItem('displayName', user.displayName);
+    localStorage.setItem('email', user.email);
+    localStorage.setItem('avatar', user.photoURL || '');
+}
+
+export const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('isAuth');
+    localStorage.removeItem('uid');
+    localStorage.removeItem('displayName');
+    localStorage.removeItem('email');
+    localStorage.removeItem('avatar');
+}
+
 export const windowSize = (setWidth) => {
+    setWidth(window.innerWidth);
     window.addEventListener('resize', () =>
         setWidth(window.innerWidth)
     )

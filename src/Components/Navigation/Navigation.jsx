@@ -20,7 +20,7 @@ const Navigation = () => {
             <ul className={`${classes['nav__list']} ${active ? classes['active'] : ''}`}>
                 {
                     linkList.map(item =>
-                        <li className={classes['nav__item']}>
+                        <li key={item} className={classes['nav__item']}>
                             <Link onClick={toggleActive} to={`/${item}`}>{item}</Link>
                         </li>
                     )

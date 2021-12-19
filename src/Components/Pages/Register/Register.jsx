@@ -1,10 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import {createUserWithEmailAndPassword, getAuth, updateProfile} from "firebase/auth";
 import {AuthContext} from "../../Context/Context";
 import {useHistory} from "react-router-dom";
-import {validateEmail} from "../../../Reducer/AppReducer";
+import {setNewUserInDatabase, setUserToLocalStorage, validateEmail} from "../../../Reducer/AppReducer";
 
 const Register = () => {
     const [email, setEmail] = useState('');
@@ -53,12 +53,14 @@ const Register = () => {
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password)
                 const user = userCredential.user;
-                updateProfile(auth.currentUser, {
+                await updateProfile(auth.currentUser, {
                     displayName: displayName
-                }).then();
-                setAuth(getAuth());
-                localStorage.setItem('isAuth', 'true');
+                }).then(() => {
+                    console.log(user);
+                });
                 setIsAuth(true);
+                await setUserToLocalStorage(user);
+                await setNewUserInDatabase(firestore, auth);
             } catch (error) {
                 const errorCode = error.code;
                 const errorMessage = error.message;

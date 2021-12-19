@@ -5,7 +5,12 @@ import './Login-form.scss';
 import {AuthContext} from "../../Context/Context";
 import {GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup} from "firebase/auth";
 import {Link, useHistory} from "react-router-dom";
-import {setNewUserInDatabase, validateEmailForm, validatePasswordForm} from "../../../Reducer/AppReducer";
+import {
+    setNewUserInDatabase,
+    setUserToLocalStorage,
+    validateEmailForm,
+    validatePasswordForm
+} from "../../../Reducer/AppReducer";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -24,10 +29,9 @@ const Login = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                localStorage.setItem('isAuth', 'true')
                 setIsAuth(true);
+                setUserToLocalStorage(user, isAuth);
                 console.log(user);
-
             })
             .catch((error) => {
                 //const errorCode = error.code;

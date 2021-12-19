@@ -1,0 +1,27 @@
+.friend-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  &__item {
+    background: #61dafb;
+    margin: 8px;
+    padding: 8px;
+  }
+
+  &__title {
+    color: #FFCF5D;
+    font-size: 1.5em;
+    text-transform: uppercase;
+  }
+
+  &__email {
+    color: #1EA446;
+    font-size: 1.25em;
+    margin: 0 0 12px 0;
+  }
+
+  &__delete {
+    font-size: 1.25em;
+    color: #000000;
+    padding: 8px;
+  }
+}

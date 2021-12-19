@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import classes from './Messages.module.scss';
-import Friends from "../../Friends/Friends";
+import Friends from "../Friends/Friends";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import {AuthContext} from "../../Context/Context";
@@ -23,7 +23,7 @@ const Messages = ({children, ...props}) => {
     const sendMessage = async (e) => {
         e.preventDefault();
         if (!message) return;
-        await setDoc(doc(messageRefFrom), {
+        await setDoc(doc(firestore,'users',`${auth.currentUser.displayName}`, 'to', `${id}`), {
             uid: auth.currentUser.uid,
             displayName: auth.currentUser.displayName,
             avatar: auth.currentUser.photoURL,
