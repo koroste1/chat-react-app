@@ -4,7 +4,11 @@ import classes from './Navigation.module.scss';
 import logo from "../../assets/logo.png";
 
 const Navigation = () => {
-    const linkList = ['Friends', 'Messages', 'Profile'];
+    const linkList = [
+        {name: 'Friends',},
+        {name: 'Messages',},
+        {name: 'Profile',}
+    ];
     const [active, setActive] = useState(false);
     const toggleActive = () => {
         setActive(!active);
@@ -20,8 +24,8 @@ const Navigation = () => {
             <ul className={`${classes['nav__list']} ${active ? classes['active'] : ''}`}>
                 {
                     linkList.map(item =>
-                        <li key={item} className={classes['nav__item']}>
-                            <Link onClick={toggleActive} to={`/${item}`}>{item}</Link>
+                        <li key={item.name} className={classes['nav__item']}>
+                            <Link onClick={toggleActive} to={`/${item.name}`}>{item.name}</Link>
                         </li>
                     )
                 }

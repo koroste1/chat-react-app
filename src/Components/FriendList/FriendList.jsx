@@ -16,7 +16,7 @@ const FriendList = ({id, ...props}) => {
         <div className={classes['friend-list']}>
             {value && value.map((item) =>
                 <div key={item.uid} className={classes['friend-list__item']}>
-                    <Link to={`/messages/${item.uid}`}>
+                    <Link to={`/messages/${item.displayName}`}>
                         <h3 className={classes['friend-list__title']}>{item.displayName}</h3>
                         <p className={classes['friend-list__email']}>{item.email}</p>
                     </Link>

@@ -1,0 +1,20 @@
+.message-item{
+  width: 100%;
+  height: 15%;
+  margin: 8px 0;
+  border-radius: 40px;
+  &_my{
+    background: #2f0c8d;
+  }
+  &_other{
+    background: #1EA446;
+  }
+  &__title{
+    color: #ffffff;
+    font-size: 1.5em;
+  }
+  &__text{
+    color: #ffffff;
+    font-size: 1.25em;
+  }
+}

@@ -1,5 +1,4 @@
 import {doc, setDoc} from "firebase/firestore";
-import {signOut} from "firebase/auth";
 
 export const setNewUserInDatabase = async (firestore, auth) => {
     const user = auth.currentUser;
@@ -16,7 +15,6 @@ export const setNewUserInDatabase = async (firestore, auth) => {
 }
 
 export const setUserToLocalStorage = (user) => {
-    console.log(user);
     localStorage.setItem('isAuth', 'true');
     localStorage.setItem('uid', user.uid);
     localStorage.setItem('displayName', user.displayName);
