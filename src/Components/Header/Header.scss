@@ -5,7 +5,14 @@
   align-items: center;
   justify-content: space-between;
   background: #2f0c8d;
-  h2{
+
+  h2 {
     color: #fff;
+  }
+
+  @media screen and (max-width: 768px) {
+    &__logo {
+      display: none;
+    }
   }
 }

@@ -8,13 +8,11 @@ import {collection, doc, orderBy, query, setDoc} from "firebase/firestore";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 import firebase from "firebase/compat";
 import {useParams} from "react-router-dom";
-import {windowSize} from "../../../Reducer/AppReducer";
 import AllChats from "../../AllChats/AllChats";
 import Loader from "../../Loader/Loader";
 
 const Messages = ({children, ...props}) => {
     const {id} = useParams();
-    const [width, setWidth] = useState();
     const [message, setMessage] = useState('');
     const {firestore, auth} = useContext(AuthContext);
     const messageRefFrom = collection(firestore, 'users', `${auth.currentUser.displayName}`, 'friendList', `${id}`, 'messages');
@@ -41,12 +39,11 @@ const Messages = ({children, ...props}) => {
         });
         setMessage('');
     }
-    useEffect(() => windowSize(setWidth), [window]);
 
 
     return (
         <div className={classes.messages}>
-            {width > 768 && <Friends/>}
+            <Friends className={'messages__friends'}/>
             {!id ? <AllChats/> :
                 <div className={classes['messages__chat']}>
 

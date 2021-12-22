@@ -3,6 +3,12 @@
   display: flex;
   justify-content: space-between;
   background: #c0a2a2;
+  @media screen and (max-width: 768px) {
+    &__friends {
+      display: none;
+    }
+  }
+
   &__my {
     background: #61dafb;
     margin: 8px;

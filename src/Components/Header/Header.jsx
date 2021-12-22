@@ -4,13 +4,12 @@ import {AuthContext} from "../Context/Context";
 import './Header.scss';
 import logo from '../../assets/logo.png';
 import {Link, useHistory} from "react-router-dom";
-import {getAuth, signOut} from "firebase/auth";
+import {signOut} from "firebase/auth";
 import Navigation from "../Navigation/Navigation";
 import {removeUserFromLocalStorage, windowSize} from "../../Reducer/AppReducer";
 
 const Header = () => {
     const {isAuth, setIsAuth, auth} = useContext(AuthContext);
-    const [width, setWidth] = useState();
 
     const history = useHistory();
     const loginLogout = () => {
@@ -24,10 +23,9 @@ const Header = () => {
             history.push('/login')
         }
     }
-    useEffect(() => windowSize(setWidth))
     return (
         <header className='header'>
-            {width > 768 && <Link to='/'><img src={logo} alt="logo" className='header__logo' width={'56px'}/></Link>}
+           <Link to='/'><img src={logo} alt="logo" className='header__logo' width={'56px'}/></Link>
             {
                 isAuth
                     ?

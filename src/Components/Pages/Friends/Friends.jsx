@@ -9,7 +9,7 @@ import {useCollectionData} from "react-firebase-hooks/firestore";
 import FriendItem from "../../FriendItem/FriendItem";
 import FriendList from "../../FriendList/FriendList";
 
-const Friends = () => {
+const Friends = ({className}) => {
     const [value, setValue] = useState('');
     const {firestore, auth} = useContext(AuthContext);
     const friendsRef = collection(firestore, 'users');
@@ -34,7 +34,7 @@ const Friends = () => {
 
     return (
 
-        <aside className={classes.friends}>
+        <aside className={`${classes.friends} ${className}`}>
             <h2 className={classes['friends__title']}>Friends</h2>
             {/*<form action="" onSubmit={}>*/}
             <Input type={'text'} value={value}
