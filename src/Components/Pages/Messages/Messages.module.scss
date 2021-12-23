@@ -3,8 +3,9 @@
   display: flex;
   justify-content: space-between;
   background: #c0a2a2;
+
   @media screen and (max-width: 768px) {
-    &__friends {
+    .messages__friends {
       display: none;
     }
   }
@@ -43,3 +44,4 @@
     align-items: center;
   }
 }
+

@@ -43,7 +43,7 @@ const Messages = ({children, ...props}) => {
 
     return (
         <div className={classes.messages}>
-            <Friends className={'messages__friends'}/>
+            <Friends className={classes['messages__friends']}/>
             {!id ? <AllChats/> :
                 <div className={classes['messages__chat']}>
 
