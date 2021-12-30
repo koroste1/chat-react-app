@@ -12,19 +12,17 @@ const AllChats = ({...props}) => {
     const [value, loading] = useCollectionData(allMessagesRef);
     const [messageItem, setMessageItem] = useState([]);
     const getAllChats = () => {
-        // value && value.map(item => console.log(item.displayName));
         value && setMessageItem(value.map(item => item.displayName));
     }
     useEffect(() => {
         getAllChats();
     }, [value]);
-    //useEffect(() => console.log(messageItem.map(item => item)), [messageItem]);
-    //messageItem.length && messageItem.map(item=>console.log(item))
+
     return (
         <div className={classes['all-chats']}>
             {loading && <Loader/>}
             {messageItem.length &&
-                messageItem.map(item => <MessageItem displayName={item}/>)}
+                messageItem.map(item => <MessageItem key={`${item}`} displayName={item}/>)}
         </div>
     );
 };
