@@ -1,5 +1,5 @@
 {
-  "short_name": "React App",
+  "short_name": "Chat App",
   "name": "Create React App Sample",
   "icons": [
     {
@@ -20,6 +20,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }

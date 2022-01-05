@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "app.vercel.chat_react_app_kohl.twa",
+                     "sha256_cert_fingerprints": ["B6:B5:AF:18:49:C2:BE:3E:54:70:B4:75:E4:D9:51:70:48:2A:3C:5F:D5:5F:75:A3:A2:29:F7:29:9E:E1:F0:2E"] }
+      }
+]

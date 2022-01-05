@@ -25,7 +25,7 @@ const Header = () => {
     }
     return (
         <header className='header'>
-           <Link to='/'><img src={logo} alt="logo" className='header__logo' width={'56px'}/></Link>
+           <Link to='/' className={"header__linkLogo"}><img src={logo} alt="logo" className='header__logo' width={'56px'}/></Link>
             {
                 isAuth
                     ?

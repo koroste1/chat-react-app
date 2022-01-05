@@ -2,12 +2,13 @@
   flex: 0 1 100%;
   max-height: 100%;
   overflow: hidden;
-  padding: 100px 100px 0;
+  padding: 100px 24px 0;
   background: linear-gradient(180deg, #01B2FF 0%, #016DFF 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
   &__main{
+    flex: 0 1 auto;
     text-align: center;
   }
   &__icon{
@@ -32,6 +33,7 @@
   &__imageBlock{
     position: relative;
     align-self: flex-start;
+
   }
   &__mainImage{
     position: relative;
@@ -46,6 +48,14 @@
     transform: translate(-240px,80px);
     width: fit-content;
     z-index: 1;
-    filter:brightness(0.95) drop-shadow(0 0px 100px rgba(0,0,0,0.5));
+    filter:brightness(0.95);
+  }
+}
+@media screen and (max-width: 928px){
+  .startPage{
+    justify-content: center;
+    &__imageBlock{
+      display: none;
+    }
   }
 }
