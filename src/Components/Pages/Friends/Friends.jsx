@@ -41,9 +41,7 @@ const Friends = ({className}) => {
                    onChange={findFriends}/>
             {/*<Button type={'submit'}>Find</Button>*/}
             {/*</form>*/}
-            {isFind && (<FriendItem id={isFind.displayName}>
-                <h3>{isFind.displayName}</h3>
-                <p>{isFind.email}</p>
+            {isFind && (<FriendItem isFind={isFind}>
                 <button type={'button'} onClick={addToFriendList}>Add to Friend List</button>
             </FriendItem>)}
             <FriendList/>
