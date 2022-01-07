@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
-import classes from './Navigation.module.scss';
+import './Navigation.scss';
 import logo from "../../assets/logo.png";
 
 const Navigation = () => {
@@ -14,17 +14,17 @@ const Navigation = () => {
         setActive(!active);
     }
     return (
-        <nav className={classes.nav}>
-            <div onClick={toggleActive} className={`${classes['icon-menu']} ${active ? classes['active'] : ''}`}>
+        <nav className={'nav'}>
+            <div onClick={toggleActive} className={`icon-menu ${active ? 'active' : ''}`}>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
             {/*{active && <Link to='/'><img src={logo} alt="logo" className='header__logo' width={'56px'}/></Link>}*/}
-            <ul className={`${classes['nav__list']} ${active ? classes['active'] : ''}`}>
+            <ul className={`nav__list ${active ? 'active' : ''}`}>
                 {
                     linkList.map(item =>
-                        <li key={item.name} className={classes['nav__item']}>
+                        <li key={item.name} className={'nav__item'}>
                             <Link onClick={toggleActive} to={`/${item.name}`}>{item.name}</Link>
                         </li>
                     )
