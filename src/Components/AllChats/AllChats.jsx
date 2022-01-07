@@ -20,9 +20,12 @@ const AllChats = ({...props}) => {
 
     return (
         <div className={classes['all-chats']}>
-            {loading && <Loader/>}
-            {messageItem.length &&
-                messageItem.map(item => <MessageItem key={`${item}`} displayName={item}/>)}
+            {loading ? <Loader/> :
+            messageItem.length>0 ?
+                messageItem.map(item => <MessageItem key={`${item}`} displayName={item}/>)
+            :
+            <h2>Ничего нет</h2>
+            }
         </div>
     );
 };
