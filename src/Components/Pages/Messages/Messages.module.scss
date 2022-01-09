@@ -13,22 +13,28 @@
       display: none;
     }
   }
-
-  &__my {
-    background: #61dafb;
+  &__message{
     margin: 8px;
+    max-width: 80%;
+    border-radius: 12px;
+    padding: 8px 12px;
+    &_my {
+      background: #61dafb;
+      align-self: flex-end;
+    }
+    &_other {
+      background: #1F2041;
+      color: white;
+      align-self: flex-start;
+    }
   }
 
-  &__other {
-    background: #1F2041;
-    color: white;
-    margin: 8px;
-  }
 
   &__chat {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   &__title {
@@ -38,11 +44,14 @@
 
   &__all-messages {
     flex: 1 1 auto;
-    height: 20vh;
+    //height: 20vh;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   &__form {
+    width: 100%;
     flex: 0 1 auto;
     display: flex;
     align-items: center;

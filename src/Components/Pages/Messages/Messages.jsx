@@ -52,7 +52,10 @@ const Messages = ({children, ...props}) => {
                         {value &&
                         value.map(item =>
                             <div key={item.createdAt}
-                                 className={auth.currentUser.uid === item.uid ? classes['messages__my'] : classes['messages__other']}>
+                                 className={auth.currentUser.uid === item.uid ?
+                                     `${classes.messages__message} ${classes.messages__message_my}`
+                                     :
+                                     `${classes.messages__message} ${classes.messages__message_other}` }>
                                 <h3>{item.displayName}</h3>
                                 <p>{item.text}</p>
                             </div>
