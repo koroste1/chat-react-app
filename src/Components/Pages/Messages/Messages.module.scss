@@ -1,9 +1,13 @@
 .messages {
-  height: 88%;
+  flex: 1 1 auto;
+  height: 90%;
   display: flex;
   justify-content: space-between;
   background: #c0a2a2;
-
+  & aside{
+    flex: 0 0 25%;
+    max-height: 100%;
+  }
   @media screen and (max-width: 768px) {
     .messages__friends {
       display: none;
