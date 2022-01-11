@@ -1,6 +1,6 @@
 .login-page {
   flex: 1 1 auto;
-  background: #2f0c8d;
+  background: #01B2FF;
   text-align: left;
   &__login-form {
     margin: 0 auto;
@@ -8,7 +8,6 @@
 }
 
 .login-form {
-  background: #2f0c8d;
   padding: 12px;
   display: flex;
   flex-direction: column;
@@ -25,6 +24,7 @@
 
   &__label {
     color: #ffffff;
+    font-weight: 700;
     font-size: 1.25em;
     display: block;
     margin: 0 0 8px 0;
