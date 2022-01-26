@@ -13,7 +13,7 @@ const MessageItem = ({children, displayName, ...props}) => {
     const [messageItem, loading] = useCollectionData(lastMessage);
     messageItem && messageItem.map(item=>{
         if (item.uid != auth.currentUser.uid){
-            const noti = new Notification('hi')
+            // const noti = new Notification('hi')
         }
     })
     return (
