@@ -11,6 +11,11 @@ const MessageItem = ({children, displayName, ...props}) => {
     const messageItemRef = collection(firestore, 'users', `${auth.currentUser.displayName}`, 'friendList', `${displayName}`, 'messages')
     const lastMessage = query(messageItemRef, orderBy('createdAt', 'desc'), limit(1))
     const [messageItem, loading] = useCollectionData(lastMessage);
+    messageItem && messageItem.map(item=>{
+        if (item.uid != auth.currentUser.uid){
+            const noti = new Notification('hi')
+        }
+    })
     return (
         <div>{messageItem && messageItem.map(item =>
             <Link key={displayName}

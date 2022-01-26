@@ -41,6 +41,14 @@
   To create a production bundle, use `npm run build` or `yarn build`.
 -->
 <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                console.log("The user accepted");
+            }
+        });
+    });
+
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/pwabuilder-sw.js')
             .then(function (registration) {
@@ -49,6 +57,37 @@
             .catch(function (error) {
                 console.log('Service worker registration failed, error:', error);
             });
+        navigator.serviceWorker.ready
+            .then(function (registration) {
+                // Check if the user has an existing subscription
+                return registration.pushManager.getSubscription()
+                    .then(function (subscription) {
+                        if (subscription) {
+                            console.log('subscription', subscription);
+                            return subscription;
+                        }
+                        const vapidKeys = 'BCuVkmBGIqty0i9hnpdKQttRKqJomSSY1ImbHAjOrm7qIGsiHsVH-U3Mqc3o50GKljxgfbE79YaYIh5wEIyl0Eo';
+                        return registration.pushManager.subscribe({
+                            userVisibleOnly: true,
+                            applicationServerKey: urlBase64ToUint8Array(vapidKeys)
+                        });
+                    });
+            });
+
+        function urlBase64ToUint8Array(base64String) {
+            const padding = '='.repeat((4 - base64String.length % 4) % 4);
+            const base64 = (base64String + padding)
+                .replace(/\-/g, '+')
+                .replace(/_/g, '/');
+
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
     }
 </script>
 </body>
