@@ -8,11 +8,12 @@ import classes from './AllChats.module.scss';
 
 const AllChats = ({...props}) => {
     const {auth, firestore} = useContext(AuthContext);
-    const allMessagesRef = collection(firestore, 'users', `${auth.currentUser.displayName}`, 'friendList');
+    const allMessagesRef = collection(firestore, 'users', `${auth.currentUser.displayName}`, 'messages');
     const [value, loading] = useCollectionData(allMessagesRef);
     const [messageItem, setMessageItem] = useState([]);
     const getAllChats = () => {
-        value && setMessageItem(value.map(item => item.displayName));
+        value && setMessageItem(value.map(item => item.displayName)) &&
+        console.log(messageItem);
     }
     useEffect(() => {
         getAllChats();
@@ -21,10 +22,10 @@ const AllChats = ({...props}) => {
     return (
         <div className={classes['all-chats']}>
             {loading ? <Loader/> :
-            messageItem.length>0 ?
-                messageItem.map(item => <MessageItem key={`${item}`} displayName={item}/>)
-            :
-            <h2>Ничего нет</h2>
+                value.length > 0 ?
+                    value.map(item => <MessageItem key={`${item.displayName}`} displayName={item.displayName}/>)
+                    :
+                    <h2>Ничего нет</h2>
             }
         </div>
     );

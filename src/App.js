@@ -8,19 +8,22 @@ import {firestore} from "./index";
 import {getAuth} from "firebase/auth";
 import {setNewUserInDatabase} from "./Reducer/AppReducer";
 import {firebase} from './firebase';
-import { getMessaging, getToken } from "firebase/messaging";
-
+import {getMessaging, getToken} from "firebase/messaging";
 
 
 function App() {
     const [auth, setAuth] = useState();
     const [isAuth, setIsAuth] = useState(false);
-    useEffect(()=>{
+    const [token, setToken] = useState('');
+    useEffect(() => {
         const msg = getMessaging();
-        getToken(msg, {vapidKey:'BCuVkmBGIqty0i9hnpdKQttRKqJomSSY1ImbHAjOrm7qIGsiHsVH-U3Mqc3o50GKljxgfbE79YaYIh5wEIyl0Eo'})
-            .then(currentToken=>{
-                console.log('token',currentToken);
-            })
+        if (Notification.permission == 'granted') {
+            getToken(msg, {vapidKey: 'BCuVkmBGIqty0i9hnpdKQttRKqJomSSY1ImbHAjOrm7qIGsiHsVH-U3Mqc3o50GKljxgfbE79YaYIh5wEIyl0Eo'})
+                .then(currentToken => {
+                    setToken(currentToken);
+                })
+        }
+
     })
     useEffect(() => {
         setAuth(getAuth());
@@ -40,7 +43,8 @@ function App() {
             setIsAuth,
             firestore,
             auth,
-            setAuth
+            setAuth,
+            token
         }}>
             <BrowserRouter>
                 <div className="App">

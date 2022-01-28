@@ -4,7 +4,7 @@ import classes from './Profile.module.scss';
 import Button from "../../UI/Button/Button";
 import {AuthContext} from "../../Context/Context";
 const Profile = () => {
-    const {auth} = useContext(AuthContext);
+    const {auth, token} = useContext(AuthContext);
     const user = auth.currentUser;
     console.log('Current user', user);
     return (
@@ -12,6 +12,7 @@ const Profile = () => {
             {/*<img src={user.photoURL} alt="photo"/>*/}
             <h2>{user.displayName}</h2>
             <h3>{user.email}</h3>
+            <h3>{token}</h3>
         </div>
     );
 };

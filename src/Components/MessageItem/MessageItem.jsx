@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 
 const MessageItem = ({children, displayName, ...props}) => {
     const {firestore, auth} = useContext(AuthContext);
-    const messageItemRef = collection(firestore, 'users', `${auth.currentUser.displayName}`, 'friendList', `${displayName}`, 'messages')
+    const messageItemRef = collection(firestore, 'users', `${auth.currentUser.displayName}`, 'messages', `${displayName}`, 'text')
     const lastMessage = query(messageItemRef, orderBy('createdAt', 'desc'), limit(1))
     const [messageItem, loading] = useCollectionData(lastMessage);
     messageItem && messageItem.map(item=>{
